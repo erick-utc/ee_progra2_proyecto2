@@ -12,7 +12,7 @@ namespace EE_Examen2_Progra2
         Classes.AuthUser user = new Classes.AuthUser();
         protected void Page_Load(object sender, EventArgs e)
         {
-
+           
         }
 
         protected void btnLogin_Click(object sender, EventArgs e)

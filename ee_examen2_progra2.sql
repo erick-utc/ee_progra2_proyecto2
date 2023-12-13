@@ -115,6 +115,8 @@ GO
 INSERT INTO AuthUsers(Username, Pass, RoleID) VALUES
 ('admin@system.com', '12345678', 1),
 ('erick@system.com', '123', 2),
+('sebas@sebas.com', '123', 3),
+('jose@jose.com', '123', 3),
 ('javier@javier.com', '123', 3)
 GO
 
@@ -145,7 +147,7 @@ CREATE PROCEDURE REPORTE_USUARIO_CORREO
 @CORREO VARCHAR(50)
 AS 
 	BEGIN
-		SELECT Usuarios.Nombre, Usuarios.CorreoElectronico, Equipos.Modelo, Equipos.TipoEquipo, Reparaciones.Estado, Asignaciones.FechaAsignacion, Tecnicos.Nombre, DetallesReparacion.Descripcion
+		SELECT Usuarios.Nombre, Usuarios.CorreoElectronico, Equipos.Modelo, Equipos.TipoEquipo, Reparaciones.Estado, Asignaciones.FechaAsignacion, Tecnicos.Nombre as 'Tecnico', DetallesReparacion.Descripcion
 		FROM Usuarios
 		INNER JOIN Equipos ON Usuarios.UsuarioID = Equipos.EquipoID
 		INNER JOIN Reparaciones ON Equipos.EquipoID = Reparaciones.EquipoID
@@ -159,7 +161,7 @@ GO
 CREATE PROCEDURE REPORTE_ADMIN
 AS 
 	BEGIN
-		SELECT Usuarios.Nombre, Usuarios.CorreoElectronico, Equipos.Modelo, Equipos.TipoEquipo, Reparaciones.Estado, Asignaciones.FechaAsignacion, Tecnicos.Nombre, DetallesReparacion.Descripcion
+		SELECT Usuarios.Nombre as 'Usuario', Usuarios.CorreoElectronico, Equipos.Modelo, Equipos.TipoEquipo, Reparaciones.Estado, Asignaciones.FechaAsignacion, Tecnicos.Nombre as 'Tecnico', DetallesReparacion.Descripcion
 		FROM Usuarios
 		INNER JOIN Equipos ON Usuarios.UsuarioID = Equipos.EquipoID
 		INNER JOIN Reparaciones ON Equipos.EquipoID = Reparaciones.EquipoID
@@ -458,10 +460,3 @@ AS
 	END
 GO
 
-
-SELECT Usuarios.Nombre, Usuarios.Telefono, Equipos.Modelo, Tecnicos.Nombre
-from Usuarios
-inner join Equipos on Usuarios.UsuarioID = Equipos.UsuarioID
-inner join Reparaciones on Reparaciones.EquipoID = Equipos.EquipoID
-inner join Asignaciones on Asignaciones.ReparacionID = Reparaciones.ReparacionID
-inner join Tecnicos on Tecnicos.TecnicoID = Asignaciones.TecnicoID

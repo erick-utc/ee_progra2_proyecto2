@@ -39,6 +39,11 @@ namespace EE_Examen2_Progra2.Classes
             return Role;
         }
 
+        public static int getRoleStatic()
+        {
+            return Role;
+        }
+
         public static string getUsername() { 
             return Username;
         }
